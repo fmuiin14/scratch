@@ -73,9 +73,16 @@
 							</a>
 							<ul class="nav nav-treeview">
 								<li class="nav-item">
-									<a href="<?= base_url('admin/data_pegawai') ?>" class="nav-link">
+									<a href="<?= base_url('admin/dataStudent') ?>" class="nav-link">
 										<i class="fas fa-users nav-icon"></i>
 										<p>Data Students</p>
+									</a>
+								</li>
+
+								<li class="nav-item">
+									<a href="<?= base_url('admin/dataParent') ?>" class="nav-link">
+										<i class="fas fa-map-marked nav-icon"></i>
+										<p>Data Parents</p>
 									</a>
 								</li>
 
