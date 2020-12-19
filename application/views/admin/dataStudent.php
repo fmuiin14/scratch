@@ -32,7 +32,7 @@
 									</div>
 								</div>
 							</div>
-							<a class="btn btn-primary mb-2" href="<?= base_url('admin/dataPegawai/tambahData') ?>"><i
+							<a class="btn btn-primary mb-2" href="<?= base_url('admin/DataStudent/tambahData') ?>"><i
 									class="fas fa-plus"></i> Tambah Data</a>
 
 							<?= $this->session->flashdata('pesan') ?>
@@ -47,12 +47,14 @@
 								<thead>
 									<tr>
 										<th class="text-center">No</th>
-										<th class="text-center">NIK</th>
-										<th class="text-center">Nama Pegawai</th>
+										<th class="text-center">Nama Anak</th>
+										<th class="text-center">Tanggal Lahir Anak</th>
+										<th class="text-center">Usia</th>
+										<th class="text-center">No HP</th>
 										<th class="text-center">Jenis Kelamin</th>
-										<th class="text-center">Jabatan</th>
+										<th class="text-center">Nama PJ Orang Tua</th>
 										<th class="text-center">Tanggal Masuk</th>
-										<th class="text-center">Status</th>
+										<th class="text-center">Agama</th>
 										<th class="text-center">Photo</th>
 										<th class="text-center">Action</th>
 									</tr>
@@ -61,22 +63,24 @@
 									<?php $no = 1; foreach( $students as $student) : ?>
 									<tr>
 										<td><?= $no++ ?></td>
-										<td><?= $student->nik ?></td>
-										<td><?= $student->nama_pegawai ?></td>
+										<td><?= $student->nama_anak ?></td>
+										<td><?= $student->tgl_lahir_anak ?></td>
+										<td><?= $student->usia_anak ?> Tahun</td>
+										<td><?= $student->no_hp_anak ?></td>
 										<td><?= $student->jenis_kelamin ?></td>
-										<td><?= $student->jabatan ?></td>
+										<td><?= $student->parents ?></td>
 										<td><?= $student->tanggal_masuk ?></td>
-										<td><?= $student->status ?></td>
+										<td><?= $student->agama ?></td>
 										<td> <img src="<?= base_url('assets/photo/'.$student->photo) ?>" width="60px;"
 												alt=""> </td>
 										<td>
 											<center>
 												<a class="btn btn-sm btn-primary"
-													href="<?= base_url('admin/dataPegawai/updateData/'.$student->id_pegawai) ?>">
+													href="<?= base_url('admin/dataStudent/updateData/'.$student->id_student) ?>">
 													<i class="fas fa-edit"></i> </a>
 												<a onclick="return confirm('Yakin hapus?')"
 													class="btn btn-sm btn-danger"
-													href="<?= base_url('admin/dataPegawai/deleteData/'.$student->id_pegawai) ?>">
+													href="<?= base_url('admin/dataStudent/deleteData/'.$student->id_student) ?>">
 													<i class="fas fa-trash"></i> </a>
 											</center>
 										</td>
