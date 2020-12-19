@@ -32,7 +32,7 @@
 									</div>
 								</div>
 							</div>
-							<a class="btn btn-primary mb-2" href="<?= base_url('admin/dataPegawai/tambahData') ?>"><i
+							<a class="btn btn-primary mb-2" href="<?= base_url('admin/dataParent/tambahData') ?>"><i
 									class="fas fa-plus"></i> Tambah Data</a>
 
 							<?= $this->session->flashdata('pesan') ?>
