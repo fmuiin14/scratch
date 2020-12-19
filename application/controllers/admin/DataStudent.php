@@ -44,7 +44,7 @@ class DataStudent extends CI_Controller {
 
 		} else {
 		$config['upload_path'] = './assets/photo/';
-		$config['allowed_types'] = '*';
+		$config['allowed_types'] = 'jpg|jpeg|png|tiff';
 		$this->load->library('upload', $config);
 		if(!$this->upload->do_upload('photo')) {
 		echo "Photo Gagal di Upload";
@@ -72,6 +72,90 @@ class DataStudent extends CI_Controller {
 
 		redirect('admin/dataStudent');
 		}
+	}
+
+	public function updateData($id) {
+		$where = array('id_student' => $id);
+
+		$data['students'] = $this->db->query("SELECT * FROM data_students WHERE id_student = '$id'")->result();
+
+		$data['parents'] = $this->StudentsModel->get_data('data_parents')->result();
+
+		$data['title'] = 'Update Data Student';
+
+		$this->load->view('template_admin/header', $data);
+		$this->load->view('template_admin/sidebar');
+		$this->load->view('admin/updateDataStudent', $data);
+		$this->load->view('template_admin/footer');
+
+
+	}
+
+	public function updateDataAksi() {
+		$this->_rules();
+
+		if ($this->form_validation->run() == FALSE) {
+			$this->updateData();
+		} else {
+			$id = $this->input->post('id_student');
+			$nama_anak = $this->input->post('nama_anak');
+			$tgl_lahir_anak = $this->input->post('tgl_lahir_anak');
+			$usia_anak = $this->input->post('usia_anak');
+			$no_hp_anak = $this->input->post('no_hp_anak');
+			$agama = $this->input->post('agama');
+			$jenis_kelamin = $this->input->post('jenis_kelamin');
+			$parents = $this->input->post('parents');
+			$tanggal_masuk = $this->input->post('tanggal_masuk');
+			// untuk photo menggunakan superglobal variabel dr php
+			$photo = $_FILES['photo']['name'];
+			if($photo) {
+				$config['upload_path'] = './assets/photo';
+				$config['allowed_types'] = 'jpg|jpeg|png|tiff';
+				$this->load->library('upload', $config);
+				if($this->upload->do_upload('photo')) {
+					$photo = $this->upload->data('file_name');
+					$this->db->set('photo', $photo);
+				} else {
+					echo $this->upload->display_errors();
+				}
+			}
+
+			$data = array(
+				'nama_anak' => $nama_anak,
+				'tgl_lahir_anak' => $tgl_lahir_anak,
+				'usia_anak' => $usia_anak,
+				'no_hp_anak' => $no_hp_anak,
+				'agama' => $agama,
+				'jenis_kelamin' => $jenis_kelamin,
+				'parents' => $parents,
+				'tanggal_masuk' => $tanggal_masuk,
+		);
+
+		$where = array(
+			'id_student' => $id
+		);
+
+		$this->StudentsModel->updateData('data_students', $data, $where);
+
+		$this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+			<strong>Data berhasil di update</strong><button type="button" class="close" data-dismiss="alert"
+				aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
+		redirect('admin/dataStudent');
+
+		}
+	}
+
+	public function deleteData($id) {
+		$where = array('id_student' => $id);
+
+		$this->StudentsModel->deleteData($where, 'data_students');
+
+		$this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+			<strong>Data berhasil di hapus</strong><button type="button" class="close" data-dismiss="alert"
+				aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+
+		redirect('admin/dataStudent');
 	}
 
 	public function _rules() {

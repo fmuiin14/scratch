@@ -19,3 +19,4 @@ data_pegawai
 Query data dengan $this->db->query(SELECT * FROM nama_table) dan WHERE nama_field = Admin
 
 Lalu data nya ditaruh di $data['namadata'] , ambil menggunakan num_rows() 
+
